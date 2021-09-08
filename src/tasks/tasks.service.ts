@@ -4,8 +4,18 @@ import { Task } from 'src/task.interface';
 @Injectable()
 export class TasksService {
   private tasks: Task[] = [
-    { title: 'Drink Coffee' },
-    { title: 'Learn Nest.js' },
+    {
+      id: '1',
+      title: 'Drink Coffee',
+      description: '',
+      status: TaskStatusEnum.DONE,
+    },
+    {
+      id: '2',
+      title: 'Learn Nest.js',
+      description: '',
+      status: TaskStatusEnum.DONE,
+    },
   ];
 
   public getTasks(): Task[] {
