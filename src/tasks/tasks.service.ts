@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Task, TaskStatusEnum } from 'src/task.interface';
 import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task-dto';
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Injectable()
 export class TasksService {
@@ -10,7 +11,7 @@ export class TasksService {
       id: '1',
       title: 'Drink Coffee',
       description: '',
-      status: TaskStatusEnum.DONE,
+      status: TaskStatusEnum.IN_PROGRESS,
     },
     {
       id: '2',
@@ -26,6 +27,27 @@ export class TasksService {
 
   public getTaskId(id: string): Task {
     return this.tasks.find((task) => task.id === id);
+  }
+
+  public getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
+    const { status, search } = filterDto;
+    let tasks: Task[] = this.getTasks();
+
+    if (status) {
+      tasks = tasks.filter((task) => task.status === status);
+    }
+
+    if (search) {
+      tasks = tasks.filter(
+        (task) =>
+          task.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()) ||
+          task.description
+            .toLocaleLowerCase()
+            .includes(search.toLocaleLowerCase()),
+      );
+    }
+
+    return tasks;
   }
 
   public createTask(createTaskDto: CreateTaskDto): Task {
