@@ -3,5 +3,5 @@ import { TaskStatusEnum } from 'src/task.interface';
 
 export class UpdateTaskStatusDto {
   @IsEnum(TaskStatusEnum)
-  status: TaskStatusEnum;
+  public status: TaskStatusEnum;
 }
