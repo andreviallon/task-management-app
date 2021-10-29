@@ -77,6 +77,9 @@ export class TasksService {
 
   public updateTaskState(id: string, status: TaskStatusEnum) {
     const task = this.getTaskId(id);
+    console.log('id', id);
+    console.log('status', status);
+
     task.status = status;
 
     return task;
