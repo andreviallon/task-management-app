@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Task, TaskStatusEnum } from 'src/task.interface';
 import { v4 as uuid } from 'uuid';
-import { CreateTaskDto } from './dto/create-task-dto';
+import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Injectable()
