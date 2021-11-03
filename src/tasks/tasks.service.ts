@@ -27,7 +27,7 @@ export class TasksService {
       await this.tasksRepository.save(task);
       return task;
     } catch (error) {
-      throw new NotFoundException('Task could not be saved... :(');
+      throw new InternalServerErrorException('Task could not be saved... :(');
     }
   }
 
