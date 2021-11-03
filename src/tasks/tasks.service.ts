@@ -4,6 +4,7 @@ import { Task } from './task.entity';
 import { TasksRepository } from './task.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { InternalServerErrorException } from '@nestjs/common/exceptions/internal-server-error.exception';
+import { TaskStatusEnum } from '../task-status.interface';
 
 @Injectable()
 export class TasksService {
@@ -39,6 +40,18 @@ export class TasksService {
 
     if (result.affected === 0) {
       throw new NotFoundException(`Task with id '${id}' not found`);
+    }
+  }
+
+  public async updateTask(id: string, status: TaskStatusEnum): Promise<Task> {
+    const task = await this.getTaskById(id);
+    task.status = status;
+
+    try {
+      await this.tasksRepository.save(task);
+      return task;
+    } catch (error) {
+      throw new InternalServerErrorException('Task could not be updated... :(');
     }
   }
 }
