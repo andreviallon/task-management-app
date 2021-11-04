@@ -5,6 +5,7 @@ import { TasksRepository } from './task.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { InternalServerErrorException } from '@nestjs/common/exceptions/internal-server-error.exception';
 import { TaskStatusEnum } from '../task-status.interface';
+import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @Injectable()
 export class TasksService {
@@ -13,11 +14,15 @@ export class TasksService {
     private tasksRepository: TasksRepository,
   ) {}
 
+  public getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+    return this.tasksRepository.getTasks(filterDto);
+  }
+
   public async getTaskById(id: string): Promise<Task> {
     try {
       return await this.tasksRepository.findOne(id);
     } catch (error) {
-      throw new NotFoundException(`Task with id '${id}' not found`);
+      throw new NotFoundException(`Task with id '${id}' not found... :(`);
     }
   }
 
