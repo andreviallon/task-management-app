@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { Task } from './task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
-import { TaskStatusEnum } from '../task-status.interface';
+import { TaskStatusEnum } from './interfaces/task-status.interface';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 
 @EntityRepository(Task)
