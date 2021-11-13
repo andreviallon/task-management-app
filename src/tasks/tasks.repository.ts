@@ -7,9 +7,11 @@ import { User } from 'src/auth/user.entity';
 
 @EntityRepository(Task)
 export class TasksRepository extends Repository<Task> {
-  public getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+  public getTasks(filterDto: GetTasksFilterDto, user: User): Promise<Task[]> {
     const { status, search } = filterDto;
     const query = this.createQueryBuilder('task');
+
+    query.where({ user });
 
     if (status) {
       query.andWhere('task.status = :status', { status });
