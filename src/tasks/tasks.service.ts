@@ -6,6 +6,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { InternalServerErrorException } from '@nestjs/common/exceptions/internal-server-error.exception';
 import { TaskStatusEnum } from './interfaces/task-status.interface';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { User } from 'src/auth/user.entity';
 
 @Injectable()
 export class TasksService {
@@ -26,8 +27,11 @@ export class TasksService {
     }
   }
 
-  public async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-    const task = this.tasksRepository.createTask(createTaskDto);
+  public async createTask(
+    createTaskDto: CreateTaskDto,
+    user: User,
+  ): Promise<Task> {
+    const task = this.tasksRepository.createTask(createTaskDto, user);
 
     try {
       await this.tasksRepository.save(task);

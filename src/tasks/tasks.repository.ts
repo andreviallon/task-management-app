@@ -3,6 +3,7 @@ import { Task } from './task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatusEnum } from './interfaces/task-status.interface';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { User } from 'src/auth/user.entity';
 
 @EntityRepository(Task)
 export class TasksRepository extends Repository<Task> {
@@ -24,13 +25,14 @@ export class TasksRepository extends Repository<Task> {
     return query.getMany();
   }
 
-  public createTask(createTaskDto: CreateTaskDto): Task {
+  public createTask(createTaskDto: CreateTaskDto, user: User): Task {
     const { title, description } = createTaskDto;
 
     return this.create({
       title,
       description,
       status: TaskStatusEnum.OPEN,
+      user,
     });
   }
 }
