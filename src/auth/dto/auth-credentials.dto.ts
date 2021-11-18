@@ -14,9 +14,5 @@ export class AuthCredentialsDto {
     - 1 lower case letter
     - 1 number or special character
   */
-  @Matches(/((?=.*d)|(?=.*W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
-    message:
-      'Password must have at least 1 upper case letter, 1 lower case letter and 1 number or special character',
-  })
   password: string;
 }
